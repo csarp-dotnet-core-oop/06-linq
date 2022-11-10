@@ -71,5 +71,27 @@ namespace _06_linq.Service
                 Console.WriteLine($"{pair.Teacher} => {pair.Subject}");
         }
 
+        // 3. feladat
+        // Tantárgyanként hány tanító tanár van
+        public void NumberOfTeacherPerSubject()
+        {
+            Dictionary<String, int> result = (from teacher in repositoryWrapper.TeacherRepo.Teachers
+                                              from subject in repositoryWrapper.SubjectRepo.Subjects
+                                              from teaching in repositoryWrapper.TeachTeacherSubjectRepo.Teachings
+                                              where teaching.TeacherId == teacher.Id && teaching.SubjectId == subject.Id
+                                              group teacher by teacher.Name into teacherGroup
+                                              select new TeacherNumberPair
+                                              {
+                                                  Teacher = teacherGroup.Key,
+                                                  Count = teacherGroup.Count()
+                                              }
+
+                                            ).ToDictionary(t => t.Teacher, t => t.Count);
+            foreach(KeyValuePair<string,int> pair in result)
+            {
+                Console.WriteLine($"{ pair.Key} => {pair.Value}");
+            }
+        }
+
     }
 }

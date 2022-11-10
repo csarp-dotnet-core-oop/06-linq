@@ -11,7 +11,8 @@ namespace _06_linq
             TeachTeacherSubjectService teachTeacherSubjectService = new TeachTeacherSubjectService();
             //teachTeacherSubjectService.TeacherSubjectPair();
             //teachTeacherSubjectService.TeacherSubjectPairLinq();
-            teachTeacherSubjectService.TeacherTeachSubjects();
+            //teachTeacherSubjectService.TeacherTeachSubjects();
+            teachTeacherSubjectService.NumberOfTeacherPerSubject();
             Console.ReadKey();
         }
     }
