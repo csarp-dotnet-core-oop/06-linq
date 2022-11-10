@@ -51,5 +51,25 @@ namespace _06_linq.Service
                 Console.WriteLine($"{pair.Teacher} => {pair.Subject}");
         }
 
+        // 2. feladat
+        // Ki melyik tantárgyat tanítja
+        public void TeacherTeachSubjects()
+        {
+            List<TeacherSubjectPair> result = (from teacher in repositoryWrapper.TeacherRepo.Teachers
+                                               from subject in repositoryWrapper.SubjectRepo.Subjects
+                                               from teaching in repositoryWrapper.TeachTeacherSubjectRepo.Teachings
+                                               where teaching.TeacherId==teacher.Id && teaching.SubjectId==subject.Id
+                                               orderby teacher.Name
+                                               select new TeacherSubjectPair
+                                               {
+                                                   Teacher = teacher.Name,
+                                                   Subject = subject.Name
+                                               }).ToList();
+
+            Console.WriteLine("Ki melyik tantárgyat tanítja:");
+            foreach (TeacherSubjectPair pair in result)
+                Console.WriteLine($"{pair.Teacher} => {pair.Subject}");
+        }
+
     }
 }
