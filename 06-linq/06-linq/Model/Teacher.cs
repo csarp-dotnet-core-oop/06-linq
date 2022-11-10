@@ -11,16 +11,19 @@ namespace _06_linq.Model
         private int id;
         private string name;
         bool isHeadTeacher;
+        bool isWoman;
 
         public int Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
         public bool IsHeadTeacher { get => isHeadTeacher; set => isHeadTeacher = value; }
+        public bool IsWoman { get => isWoman; set => isWoman = value; }
 
-        public Teacher(int id, string name, bool isHeadTeacher)
+        public Teacher(int id, string name, bool isHeadTeacher, bool isWoman)
         {
             this.Id = id;
             this.Name = name;
             this.IsHeadTeacher = isHeadTeacher;
+            this.isWoman = isWoman;
         }
 
         public Teacher()
@@ -28,6 +31,7 @@ namespace _06_linq.Model
             id = -1;
             name = string.Empty;
             isHeadTeacher = false;
+            IsWoman = false;
         }
 
 
