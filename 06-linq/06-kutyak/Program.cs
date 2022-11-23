@@ -3,73 +3,53 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Kutyák
 {
-    class Vizsgálat
+    class KutyaNev 
     {
-        string név;
-        string fajta;
-        DateTime utolsóVizsgálatIdeje;
-        int életkor;
+        public int Id { get; set; }
+        public string Nev { get; set; }
 
-        public string Név
-        {
-            get
-            {
-                return this.név;
-            }
-
-            set
-            {
-                this.név = value;
-            }
-        }
-        public string Fajta
-        {
-            get
-            {
-                return this.fajta;
-            }
-
-            set
-            {
-                this.fajta = value;
-            }
-        }
-        public DateTime UtolsóVizsgálatIdeje
-        {
-            get
-            {
-                return this.utolsóVizsgálatIdeje;
-            }
-
-            set
-            {
-                this.utolsóVizsgálatIdeje = value;
-            }
-        }
-        public int Életkor
-        {
-            get
-            {
-                return this.életkor;
-            }
-
-            set
-            {
-                this.életkor = value;
-            }
-        }
-
-        public Vizsgálat(string sor, Dictionary<int, string> kutyafajták, Dictionary<int, string> kutyanevek)
+        public KutyaNev(string sor)
         {
             string[] adatok = sor.Split(';');
-            this.Fajta = kutyafajták[Convert.ToInt32(adatok[1])];
-            this.Név = kutyanevek[Convert.ToInt32(adatok[2])];
-            this.Életkor = Convert.ToInt32(adatok[3]);
-            this.UtolsóVizsgálatIdeje = Convert.ToDateTime(adatok[4]);
+            this.Id = Convert.ToInt32(adatok[0]);
+            this.Nev = adatok[1];
+        }
+    }
+
+    class Fajta
+    {
+        public int Id { get; set; } 
+        public string Nev { get; set; }
+        public string EredetiNev { get; set; }
+
+        public Fajta(string sor)
+        {
+            string[] adatok = sor.Split(';');
+            this.Id = Convert.ToInt32(adatok[0]);
+            this.Nev = adatok[1];
+            this.EredetiNev = adatok[2];
+        }
+    }
+
+    class Vizsgalat
+    {
+        public int Id { get; set; }
+        public int FajtaId { get; set; }
+        public int NevId { get; set; }
+        public int Eletkor { get; set; }
+        public DateTime VizsgalatIdo{ get; set; }
+
+        public Vizsgalat(string sor)
+        {
+            string[] adatok = sor.Split(';');
+            this.Id = Convert.ToInt32(adatok[0]);
+            this.FajtaId = Convert.ToInt32(adatok[1]);
+            this.NevId = Convert.ToInt32(adatok[2]);
+            this.Eletkor = Convert.ToInt32(adatok[3]);
+            this.VizsgalatIdo = Convert.ToDateTime(adatok[4]);
         }
     }
 
@@ -77,18 +57,15 @@ namespace Kutyák
     {
         static void Main(string[] args)
         {
-            Dictionary<int, string> kutyanevek = new Dictionary<int, string>();
-            kutyanevek = File.ReadAllLines("../../../KutyaNevek.csv", Encoding.UTF8).Skip(1).ToDictionary(sor => Convert.ToInt32(sor.Split(';')[0]), sor => sor.Split(';')[1]);
-            Dictionary<int, string> kutyafajták = new Dictionary<int, string>();
-            kutyafajták = File.ReadAllLines("../../../KutyaFajták.csv", Encoding.UTF8).Skip(1).ToDictionary(sor => Convert.ToInt32(sor.Split(';')[0]), sor => sor.Split(';')[1]);
+            List<KutyaNev> kutyanevek= File.ReadAllLines("../../../KutyaNevek.csv", Encoding.UTF8).Skip(1).Select(sor => new KutyaNev(sor)).ToList();
+            List<Fajta> fajtak = File.ReadAllLines("../../../KutyaFajták.csv", Encoding.UTF8).Skip(1).Select(sor => new Fajta(sor)).ToList();
+            List <Vizsgalat> vizsgalatok = File.ReadAllLines("../../../Kutyák.csv", Encoding.UTF8).Skip(1).Select(sor => new Vizsgalat(sor)).ToList();
 
-            List<Vizsgálat> vizsgálatok = File.ReadAllLines("../../../Kutyák.csv", Encoding.UTF8).Skip(1).Select(sor => new Vizsgálat(sor, kutyafajták, kutyanevek)).ToList();
-
+            Console.WriteLine("3. feladat: Kutyafajták száma: {0}", fajtak.Count());
+            Console.WriteLine("3. feladat: Vizsgaálatok száma: {0}", vizsgalatok.Count());
             Console.WriteLine("3. feladat: Kutyanevek száma: {0}", kutyanevek.Count());
 
-
-
-            Console.ReadLine();
+            Console.ReadKey();
 
         }
     }
