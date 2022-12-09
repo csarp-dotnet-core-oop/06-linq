@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _06_linq.Service;
+using System;
 
 namespace _06_linq_dotnet_5
 {
@@ -6,7 +7,16 @@ namespace _06_linq_dotnet_5
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            TeacherService teacherService = new TeacherService();
+            teacherService.HeadTeachersName();
+
+
+            //TeachTeacherSubjectService teachTeacherSubjectService = new TeachTeacherSubjectService();
+            //teachTeacherSubjectService.TeacherSubjectPair();
+            //teachTeacherSubjectService.TeacherSubjectPairLinq();
+            //teachTeacherSubjectService.TeacherTeachSubjects();
+            //teachTeacherSubjectService.NumberOfTeacherPerSubject();
+            Console.ReadKey();
         }
     }
 }
