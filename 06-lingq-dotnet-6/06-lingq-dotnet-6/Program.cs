@@ -1,9 +1,12 @@
 ﻿using _06_linq.Service;
 
 TeacherService teacherService = new TeacherService();
-
-teacherService.HeadTeachersName();
-teacherService.HeadTeachersLambda();
+//teacherService.HeadTeachersName();
+//teacherService.HeadTeachersLambda();
+//teacherService.WomanTeacher();
+//teacherService.WomanTeacherLambda();
+//teacherService.WomanTeacherIndex();
+//teacherService.WomanTeacherIndexLambda();
 
 
 //TeachTeacherSubjectService teachTeacherSubjectService = new TeachTeacherSubjectService();
